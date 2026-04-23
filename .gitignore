@@ -11,3 +11,8 @@ node_modules/
 .next/
 .DS_Store
 .vercel
+
+# Lockfiles (pnpm only)
+package-lock.json
+npm-shrinkwrap.json
+yarn.lock

@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { useAuth } from "@/lib/auth-context"
+import { createClient } from "@/lib/supabase/client"
 import { Lock, User, Eye, EyeOff } from "lucide-react"
 
 export function LoginForm() {
@@ -10,15 +10,17 @@ export function LoginForm() {
   const [showPw, setShowPw] = useState(false)
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
-  const { login } = useAuth()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
     setLoading(true)
-    await new Promise(r => setTimeout(r, 400))
-    const ok = login(username, password)
-    if (!ok) setError("Usuario o contraseña incorrecta")
+    const supabase = createClient()
+    const { error } = await supabase.auth.signInWithPassword({
+      email: username,
+      password,
+    })
+    if (error) setError("Usuario o contraseña incorrecta")
     setLoading(false)
   }
 

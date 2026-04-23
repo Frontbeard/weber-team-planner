@@ -42,7 +42,15 @@ class ErrorBoundary extends React.Component<
 }
 
 function AppContent() {
-  const { isAuthenticated } = useAuth()
+  const { isAuthenticated, isLoading } = useAuth()
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <div className="animate-pulse text-muted-foreground">Cargando...</div>
+      </div>
+    )
+  }
 
   if (!isAuthenticated) {
     return <LoginForm />

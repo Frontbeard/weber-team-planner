@@ -47,11 +47,7 @@ export default function SharePage() {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!id) {
-      setError("ID no encontrado")
-      setLoading(false)
-      return
-    }
+    if (!id) return
 
     const fetchExport = async () => {
       try {
@@ -79,6 +75,17 @@ export default function SharePage() {
 
     fetchExport()
   }, [id])
+
+  if (!id) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <p className="text-lg font-semibold text-foreground">No se pudo cargar la convocatoria</p>
+          <p className="text-sm text-muted-foreground">ID no encontrado</p>
+        </div>
+      </div>
+    )
+  }
 
   if (loading) {
     return (

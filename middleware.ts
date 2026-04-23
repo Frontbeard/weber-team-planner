@@ -1,7 +1,14 @@
 import { updateSession } from '@/lib/supabase/middleware'
-import { type NextRequest } from 'next/server'
+import { type NextRequest, NextResponse } from 'next/server'
 
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl
+
+  // Rutas públicas: share links y auth
+  if (pathname.startsWith("/share") || pathname.startsWith("/auth")) {
+    return NextResponse.next({ request })
+  }
+
   return await updateSession(request)
 }
 

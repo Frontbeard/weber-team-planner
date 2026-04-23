@@ -3,9 +3,6 @@
 import { createContext, useContext, useState, useEffect, useCallback, type ReactNode } from "react"
 import { createClient } from "@/lib/supabase/client"
 
-// Fixed team ID for this app (single team mode)
-const TEAM_ID = "00000000-0000-0000-0000-000000000001"
-
 export interface Player {
   id: string
   firstName: string
@@ -252,6 +249,8 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
   const [scoutingNotes, setScoutingNotes] = useState<ScoutingNote[]>([])
   const [fixtureUniforms, setFixtureUniforms] = useState<Record<string, MatchUniform>>({})
   const [isLoading, setIsLoading] = useState(true)
+  const [teamId, setTeamId] = useState<string | null>(null)
+  const [clubId, setClubId] = useState<string | null>(null)
 
   const teamLogo = "/escudo.png"
   const supabase = createClient()
@@ -260,6 +259,20 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
   const loadData = useCallback(async () => {
     setIsLoading(true)
     try {
+      const { data: { user } } = await supabase.auth.getUser()
+      if (!user) { setIsLoading(false); return }
+
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("team_id, club_id")
+        .eq("user_id", user.id)
+        .single()
+
+      if (!profile?.team_id) { setIsLoading(false); return }
+      setTeamId(profile.team_id)
+      setClubId(profile.club_id)
+      const TEAM_ID = profile.team_id
+
       // Load players
       const { data: playersData, error: playersError } = await supabase
         .from("players")
@@ -423,29 +436,32 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
 
   // Initial load
   useEffect(() => {
-    loadData()
+    const id = window.setTimeout(() => { void loadData() }, 0)
+    return () => window.clearTimeout(id)
   }, [loadData])
 
   // Set up real-time subscriptions
   useEffect(() => {
+    if (!teamId) return
+
     const channel = supabase
       .channel("team-changes")
-      .on("postgres_changes", { event: "*", schema: "public", table: "players", filter: `team_id=eq.${TEAM_ID}` }, () => {
+      .on("postgres_changes", { event: "*", schema: "public", table: "players", filter: `team_id=eq.${teamId}` }, () => {
         loadData()
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "formation_boards", filter: `team_id=eq.${TEAM_ID}` }, () => {
+      .on("postgres_changes", { event: "*", schema: "public", table: "formation_boards", filter: `team_id=eq.${teamId}` }, () => {
         loadData()
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "corner_plays", filter: `team_id=eq.${TEAM_ID}` }, () => {
+      .on("postgres_changes", { event: "*", schema: "public", table: "corner_plays", filter: `team_id=eq.${teamId}` }, () => {
         loadData()
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "defensive_corner_plays", filter: `team_id=eq.${TEAM_ID}` }, () => {
+      .on("postgres_changes", { event: "*", schema: "public", table: "defensive_corner_plays", filter: `team_id=eq.${teamId}` }, () => {
         loadData()
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "block_plays", filter: `team_id=eq.${TEAM_ID}` }, () => {
+      .on("postgres_changes", { event: "*", schema: "public", table: "block_plays", filter: `team_id=eq.${teamId}` }, () => {
         loadData()
       })
-      .on("postgres_changes", { event: "*", schema: "public", table: "fixture_uniforms", filter: `team_id=eq.${TEAM_ID}` }, () => {
+      .on("postgres_changes", { event: "*", schema: "public", table: "fixture_uniforms", filter: `team_id=eq.${teamId}` }, () => {
         loadData()
       })
       .subscribe()
@@ -453,7 +469,7 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
     return () => {
       supabase.removeChannel(channel)
     }
-  }, [supabase, loadData])
+  }, [supabase, loadData, teamId])
 
   // Player operations
   const updatePlayer = async (id: string, updates: Partial<Player>) => {
@@ -470,10 +486,11 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
   }
 
   const addPlayer = async (player: Omit<Player, "id">) => {
+    if (!teamId) return
     const { data } = await supabase
       .from("players")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         first_name: player.firstName,
         last_name: player.lastName,
         dorsal_number: player.dorsalNumber,
@@ -511,11 +528,12 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
   // Formation board operations
   const addFormationBoard = async () => {
     if (formationBoards.length >= 5) return
+    if (!teamId) return
     
     const { data } = await supabase
       .from("formation_boards")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         name: `Formación ${formationBoards.length + 1}`,
         positions: [],
         sort_order: formationBoards.length,
@@ -536,13 +554,14 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
 
   const cloneFormationBoard = async (id: string) => {
     if (formationBoards.length >= 5) return
+    if (!teamId) return
     const source = formationBoards.find(b => b.id === id)
     if (!source) return
     
     const { data } = await supabase
       .from("formation_boards")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         name: `${source.name} (copia)`,
         positions: source.positions,
         sort_order: formationBoards.length,
@@ -575,10 +594,11 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
 
   // Corner play operations
   const addCornerPlay = async (play: Omit<CornerPlay, "id">) => {
+    if (!teamId) return
     const { data } = await supabase
       .from("corner_plays")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         name: play.name,
         description: play.description,
         tokens: play.tokens,
@@ -606,10 +626,11 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
 
   // Defensive corner play operations
   const addDefensiveCornerPlay = async (play: Omit<DefensiveCornerPlay, "id">) => {
+    if (!teamId) return
     const { data } = await supabase
       .from("defensive_corner_plays")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         name: play.name,
         description: play.description,
         tokens: play.tokens,
@@ -637,10 +658,11 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
 
   // Block play operations
   const addBlockPlay = async (play: Omit<BlockPlay, "id">) => {
+    if (!teamId) return
     const { data } = await supabase
       .from("block_plays")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         name: play.name,
         description: play.description,
         tokens: play.tokens,
@@ -675,10 +697,11 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
 
   // Scouting notes operations
   const addScoutingNote = async (note: Omit<ScoutingNote, "id" | "createdAt" | "updatedAt">) => {
+    if (!teamId) return
     const { data } = await supabase
       .from("scouting_notes")
       .insert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         fixture_id: note.fixtureId,
         content: note.content,
       })
@@ -715,13 +738,14 @@ export function TeamStoreProvider({ children }: { children: ReactNode }) {
   const defaultUniform: MatchUniform = { camiseta: "oficial", pollera: "pollera", medias: "oficial" }
 
   const updateFixtureUniform = async (fixtureId: string, uniform: MatchUniform) => {
+    if (!teamId) return
     setFixtureUniforms(prev => ({ ...prev, [fixtureId]: uniform }))
     
     // Upsert the uniform
     await supabase
       .from("fixture_uniforms")
       .upsert({
-        team_id: TEAM_ID,
+        team_id: teamId,
         fixture_id: fixtureId,
         camiseta: uniform.camiseta,
         pollera: uniform.pollera,
