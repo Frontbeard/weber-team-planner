@@ -41,7 +41,7 @@ export default function RootLayout({
         <div className="flex-1">
           {children}
         </div>
-        <footer className="py-4 text-center border-t border-border/20 bg-background/50">
+        {/* <footer className="py-4 text-center border-t border-border/20 bg-background/50">
           <a 
             href="https://www.instagram.com/hako.std/" 
             target="_blank" 
@@ -50,7 +50,7 @@ export default function RootLayout({
           >
             Aplicación web diseñada y desarrollada por Hako Studio
           </a>
-        </footer>
+        </footer> */}
         <Analytics />
       </body>
     </html>
