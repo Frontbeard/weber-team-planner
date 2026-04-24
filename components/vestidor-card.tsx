@@ -29,11 +29,11 @@ export function VestidorCard({ fixtureId }: VestidorCardProps) {
   }
 
   return (
-    <div className="rounded-2xl border border-border/30 bg-card p-4 sm:p-5 shadow-lg">
+    <div className="bento-card p-4 sm:p-5 shadow-lg">
       {/* Header */}
       <div className="flex items-center gap-2 mb-4">
-        <Shirt className="w-4 h-4 text-primary" />
-        <h3 className="text-sm font-bold text-foreground">Vestidor</h3>
+        <Shirt className="w-4 h-4 text-primary-soft" />
+        <h3 className="font-display text-sm font-bold text-foreground">Vestidor</h3>
       </div>
 
       <div className="grid grid-cols-3 gap-3">

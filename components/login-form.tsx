@@ -25,34 +25,37 @@ export function LoginForm() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background px-4">
-      {/* Background accent */}
+    <div className="min-h-screen flex items-center justify-center bg-background px-4 relative overflow-hidden">
+      {/* Background accents — water-pitch gradients */}
       <div
         className="fixed inset-0 pointer-events-none"
-        style={{ background: "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(172,226,255,0.07) 0%, transparent 70%)" }}
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 40% at 50% 0%, rgba(0,102,255,0.18) 0%, transparent 70%), radial-gradient(ellipse 50% 30% at 100% 100%, rgba(0,238,252,0.10) 0%, transparent 70%)",
+        }}
       />
 
       <div className="w-full max-w-sm relative">
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
-          <div className="w-24 h-24 rounded-3xl overflow-hidden mb-5 shadow-2xl">
+          <div className="w-24 h-24 rounded-3xl overflow-hidden mb-5 shadow-2xl glow-primary-soft">
             <img
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/stickplanner-bH4F1wYyJg3tj1ECSKyuG7xPoQa1Hb.png"
               alt="Stick Planner"
               className="w-full h-full object-cover"
             />
           </div>
-          <h1 className="text-2xl font-bold text-foreground tracking-tight text-center">Stick Planner</h1>
-          <p className="text-sm font-semibold text-primary mt-1">Club Banco Hipotecario</p>
-          <p className="text-xs text-muted-foreground mt-1">Panel de Dirección Técnica</p>
+          <h1 className="font-display text-3xl font-bold text-foreground tracking-tight text-center">Stick Planner</h1>
+          <p className="text-sm font-semibold text-primary-soft mt-1">Club Banco Hipotecario</p>
+          <p className="label-caps text-muted-foreground mt-2">Panel de Dirección Técnica</p>
         </div>
 
-        {/* Card */}
-        <div className="rounded-3xl border border-border/30 bg-card p-6 shadow-2xl">
+        {/* Card — glassmorphism */}
+        <div className="glass-strong rounded-3xl p-6 shadow-2xl">
           <form onSubmit={handleSubmit} className="space-y-4">
             {/* Username */}
             <div>
-              <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">
+              <label className="label-caps text-muted-foreground mb-2 block">
                 Usuario
               </label>
               <div className="relative">
@@ -63,14 +66,14 @@ export function LoginForm() {
                   value={username}
                   onChange={e => setUsername(e.target.value)}
                   required
-                  className="w-full bg-secondary text-foreground placeholder:text-muted-foreground text-sm rounded-xl pl-10 pr-4 py-3 border border-border/40 outline-none focus:border-primary/60 transition-colors"
+                  className="w-full bg-input text-foreground placeholder:text-muted-foreground/60 text-sm rounded-xl pl-10 pr-4 py-3 border border-border/40 outline-none input-glow transition-all"
                 />
               </div>
             </div>
 
             {/* Password */}
             <div>
-              <label className="text-[11px] font-semibold text-muted-foreground uppercase tracking-wider mb-1.5 block">
+              <label className="label-caps text-muted-foreground mb-2 block">
                 Contraseña
               </label>
               <div className="relative">
@@ -81,12 +84,12 @@ export function LoginForm() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   required
-                  className="w-full bg-secondary text-foreground placeholder:text-muted-foreground text-sm rounded-xl pl-10 pr-11 py-3 border border-border/40 outline-none focus:border-primary/60 transition-colors"
+                  className="w-full bg-input text-foreground placeholder:text-muted-foreground/60 text-sm rounded-xl pl-10 pr-11 py-3 border border-border/40 outline-none input-glow transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPw(v => !v)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors"
                   tabIndex={-1}
                 >
                   {showPw ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
@@ -96,7 +99,7 @@ export function LoginForm() {
 
             {/* Error */}
             {error && (
-              <p className="text-xs font-semibold text-destructive bg-destructive/10 rounded-xl px-3 py-2 text-center">
+              <p className="text-xs font-semibold text-destructive bg-destructive/10 rounded-xl px-3 py-2 text-center border border-destructive/20">
                 {error}
               </p>
             )}
@@ -105,7 +108,7 @@ export function LoginForm() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold tracking-tight transition-all hover:opacity-90 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/20 mt-2"
+              className="w-full py-3 rounded-xl bg-primary text-primary-foreground text-sm font-bold tracking-tight font-display transition-all hover:opacity-90 hover:shadow-[0_0_28px_rgba(0,102,255,0.45)] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-primary/25 mt-2"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">

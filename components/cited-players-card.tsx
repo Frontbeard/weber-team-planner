@@ -70,12 +70,12 @@ export function CitedPlayersCard() {
   }
 
   return (
-    <div className="rounded-2xl border border-border/40 bg-card shadow-lg overflow-hidden">
+    <div className="bento-card shadow-lg overflow-hidden">
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b border-border/20">
+      <div className="flex items-center justify-between px-4 py-3 border-b border-white/5">
         <div className="flex items-center gap-2">
-          <Users className="w-4 h-4 text-primary" />
-          <h3 className="text-sm font-bold text-foreground">Plantel</h3>
+          <Users className="w-4 h-4 text-primary-soft" />
+          <h3 className="font-display text-sm font-bold text-foreground">Plantel</h3>
           <span className="text-xs text-muted-foreground bg-secondary px-2 py-0.5 rounded-full">{citedPlayers.length}/{players.length} citadas</span>
         </div>
         <div className="flex items-center gap-1.5">
@@ -158,7 +158,7 @@ export function CitedPlayersCard() {
 
       {/* Add player dialog */}
       <Dialog open={addOpen} onOpenChange={setAddOpen}>
-        <DialogContent className="bg-card border-border">
+        <DialogContent className="glass-strong border-white/10">
           <DialogHeader>
             <DialogTitle className="text-foreground">Agregar Jugadora</DialogTitle>
             <DialogDescription>
@@ -203,7 +203,7 @@ export function CitedPlayersCard() {
 
       {/* Edit player dialog */}
       <Dialog open={editOpen} onOpenChange={setEditOpen}>
-        <DialogContent className="bg-card border-border">
+        <DialogContent className="glass-strong border-white/10">
           <DialogHeader>
             <DialogTitle className="text-foreground">Editar Jugadora</DialogTitle>
             <DialogDescription>

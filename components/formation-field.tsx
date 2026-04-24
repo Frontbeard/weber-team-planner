@@ -100,9 +100,9 @@ function BoardPanel({ board, canDelete, bw }: { board: FormationBoard; canDelete
   }
 
   return (
-    <div className="rounded-2xl overflow-hidden border border-border/40 bg-card shadow-xl flex flex-col">
+    <div className="bento-card shadow-xl flex flex-col">
       {/* Board header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-border/30 bg-card/80">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 px-3 sm:px-4 py-2.5 sm:py-3 border-b border-white/5 bg-card/60">
         <div className="flex items-center gap-2 min-w-0 order-1 sm:order-none">
           {editingName ? (
             <div className="flex items-center gap-1.5">

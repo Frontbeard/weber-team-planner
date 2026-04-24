@@ -56,11 +56,11 @@ export function ScoutingNotesCard({ fixtures }: { fixtures: Fixture[] }) {
 
   return (
     <>
-      <Card className="rounded-2xl border-border/30 bg-card p-4 shadow-xl">
+      <Card className="bento-card p-4 shadow-xl">
         <div className="flex items-center gap-3 mb-4">
-          <BookOpen className="w-4 h-4 text-primary" />
+          <BookOpen className="w-4 h-4 text-primary-soft" />
           <div>
-            <h3 className="text-sm font-bold text-foreground">Anotaciones</h3>
+            <h3 className="font-display text-sm font-bold text-foreground">Anotaciones</h3>
             <p className="text-[10px] text-muted-foreground">Observaciones por fecha</p>
           </div>
         </div>
@@ -131,10 +131,10 @@ export function ScoutingNotesCard({ fixtures }: { fixtures: Fixture[] }) {
 
       {/* Popup Modal */}
       {editingFixtureId && (
-        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4">
-          <div className="bg-card rounded-2xl w-full max-w-md shadow-2xl">
-            <div className="flex items-center justify-between p-4 border-b border-border/30">
-              <h3 className="text-sm font-bold text-foreground">
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+          <div className="glass-strong rounded-2xl w-full max-w-md shadow-2xl">
+            <div className="flex items-center justify-between p-4 border-b border-white/5">
+              <h3 className="font-display text-sm font-bold text-foreground">
                 Notas - {editingFixture?.opponent}
               </h3>
               <button 

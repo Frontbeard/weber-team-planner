@@ -152,19 +152,19 @@ export function ExportPanel() {
   }
 
   return (
-    <div className="flex gap-2 p-2 rounded-2xl bg-card/95 backdrop-blur-md border border-border/40 shadow-lg">
+    <div className="flex gap-2 p-2 rounded-2xl glass-strong shadow-2xl glow-primary-soft">
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogTrigger asChild>
           <button
             onClick={generateLink}
-            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-semibold hover:opacity-90 shadow-sm transition-all"
+            className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-primary text-primary-foreground text-xs font-bold font-display tracking-tight hover:opacity-90 hover:shadow-[0_0_20px_rgba(0,102,255,0.4)] shadow-lg shadow-primary/25 transition-all"
           >
             <Link2 className="w-3.5 h-3.5" /> Link
           </button>
         </DialogTrigger>
-        <DialogContent className="bg-card border-border">
+        <DialogContent className="glass-strong border-white/10">
           <DialogHeader>
-            <DialogTitle>Link de solo lectura</DialogTitle>
+            <DialogTitle className="font-display">Link de solo lectura</DialogTitle>
             <DialogDescription>Comparte este link con las jugadoras. Solo pueden ver, no editar.</DialogDescription>
           </DialogHeader>
           <div className="space-y-3 py-2">

@@ -17,9 +17,9 @@ export function MatchInfoCard() {
 
   if (isEditing) {
     return (
-      <div className="rounded-2xl border border-border/40 bg-card p-4 shadow-lg space-y-4">
+      <div className="bento-card p-4 shadow-lg space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-bold text-foreground">Editar partido</h3>
+          <h3 className="font-display text-sm font-bold text-foreground">Editar partido</h3>
           <div className="flex gap-2">
             <button onClick={cancel} className="p-1.5 rounded-lg text-muted-foreground hover:bg-secondary/60 transition-colors">
               <X className="w-4 h-4" />
@@ -68,10 +68,10 @@ export function MatchInfoCard() {
   const opponentLogo = matchInfo.opponentLogo
 
   return (
-    <div className="rounded-2xl border border-border/40 bg-card shadow-lg overflow-hidden">
+    <div className="bento-card shadow-lg overflow-hidden">
       {/* Eyebrow bar */}
-      <div className="flex items-center justify-between px-4 py-2 bg-primary/8 border-b border-border/20">
-        <span className="text-[11px] font-bold tracking-widest text-primary uppercase">{matchInfo.matchday}</span>
+      <div className="flex items-center justify-between px-4 py-2 glass-primary border-b border-white/5">
+        <span className="label-caps text-primary-soft">{matchInfo.matchday}</span>
         <span className="text-[11px] text-muted-foreground">{matchInfo.tournament} · {matchInfo.round}</span>
         <button onClick={() => { setDraft(matchInfo); setIsEditing(true) }} className="p-1 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 transition-all">
           <Pencil className="w-3.5 h-3.5" />
@@ -82,25 +82,25 @@ export function MatchInfoCard() {
         {/* Teams row */}
         <div className="flex items-center justify-center gap-4 mb-4">
           <div className="flex flex-col items-center gap-1.5">
-            <div className="w-14 h-14 rounded-2xl bg-secondary/40 border border-border/20 overflow-hidden p-1 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-2xl glass overflow-hidden p-1 flex items-center justify-center">
               <img src={teamLogo} alt="BH" className="w-full h-full object-contain" />
             </div>
-            <span className="text-[11px] font-bold text-foreground tracking-tight">B. HIPOTECARIO</span>
+            <span className="font-display text-[11px] font-bold text-foreground tracking-tight">B. HIPOTECARIO</span>
           </div>
 
           <div className="flex flex-col items-center px-2">
-            <span className="text-xl font-black text-muted-foreground tracking-widest">VS</span>
+            <span className="font-display text-xl font-black text-muted-foreground tracking-widest">VS</span>
           </div>
 
           <div className="flex flex-col items-center gap-1.5">
-            <div className="w-14 h-14 rounded-2xl bg-secondary/40 border border-border/20 overflow-hidden p-1 flex items-center justify-center">
+            <div className="w-14 h-14 rounded-2xl glass overflow-hidden p-1 flex items-center justify-center">
               {opponentLogo ? (
                 <img src={opponentLogo} alt={matchInfo.opponent} className="w-full h-full object-contain" />
               ) : (
-                <span className="text-base font-black text-foreground">{matchInfo.opponent.slice(0, 2).toUpperCase()}</span>
+                <span className="font-display text-base font-black text-foreground">{matchInfo.opponent.slice(0, 2).toUpperCase()}</span>
               )}
             </div>
-            <span className="text-[11px] font-bold text-foreground tracking-tight">{matchInfo.opponent.toUpperCase()}</span>
+            <span className="font-display text-[11px] font-bold text-foreground tracking-tight">{matchInfo.opponent.toUpperCase()}</span>
           </div>
         </div>
 

@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dev *)",
+      "Bash(npm --version)",
+      "Bash(npx --yes pnpm@latest --version)",
+      "Bash(npx *)",
+      "Bash(curl -s -o /dev/null -w \"HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"/ : HTTP %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"/auth/login : HTTP %{http_code}\\\\n\" http://localhost:3000/auth/login)",
+      "Bash(curl -s -o /dev/null -w \"/ : %{http_code}\\\\n\" http://localhost:3000/)",
+      "Bash(curl -s -o /dev/null -w \"/auth/login : %{http_code}\\\\n\" http://localhost:3000/auth/login)",
+      "Bash(curl -s -o /dev/null -w \"/share/test : %{http_code}\\\\n\" http://localhost:3000/share/test)",
+      "Bash(curl -s http://localhost:3000/auth/login)",
+      "Bash(kill %1)",
+      "Bash(awk '{print $2}')",
+      "Bash(xargs -r kill -9)",
+      "PowerShell(Stop-Process *)",
+      "Bash(curl -s -o /dev/null -w \"/ : %{http_code}\\\\n/auth/login : %{http_code}\\\\n/share/test : %{http_code}\\\\n\" http://localhost:3000/ -o /dev/null)"
+    ]
+  }
+}

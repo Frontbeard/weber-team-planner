@@ -352,10 +352,10 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header — fijo */}
-      <header className="sticky top-0 z-50 border-b border-border/30 bg-background/80 backdrop-blur-xl">
+      {/* Header — glass */}
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/50">
         <div className="max-w-4xl mx-auto px-3 sm:px-4 h-12 sm:h-14 flex items-center gap-2 sm:gap-3">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden shrink-0">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden shrink-0 glow-primary-soft">
             <img
               src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/stickplanner-bH4F1wYyJg3tj1ECSKyuG7xPoQa1Hb.png"
               alt="Stick Planner"
@@ -363,17 +363,17 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
             />
           </div>
           <div className="min-w-0">
-            <span className="text-xs sm:text-sm font-bold text-foreground tracking-tight">Stick Planner</span>
-            <p className="text-[10px] text-primary leading-none">Convocatoria — Club Banco Hipotecario</p>
+            <span className="font-display text-xs sm:text-sm font-bold text-foreground tracking-tight">Stick Planner</span>
+            <p className="text-[10px] text-primary-soft leading-none">Convocatoria — Club Banco Hipotecario</p>
           </div>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-3 sm:px-4 py-6 space-y-6">
         {/* Match Info */}
-        <div className="rounded-2xl border border-border/40 bg-card shadow-lg overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-2 bg-primary/8 border-b border-border/20">
-            <span className="text-[11px] font-bold tracking-widest text-primary uppercase">{matchInfo.matchday}</span>
+        <div className="bento-card shadow-lg overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-2 glass-primary border-b border-white/5">
+            <span className="label-caps text-primary-soft">{matchInfo.matchday}</span>
             <span className="text-[11px] text-muted-foreground">{matchInfo.tournament}</span>
             <div className="w-5" />
           </div>
@@ -381,40 +381,40 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
           <div className="px-4 py-4">
             <div className="flex items-center justify-center gap-6 mb-4">
               <div className="flex flex-col items-center gap-1.5">
-                <div className="w-14 h-14 rounded-2xl bg-secondary/40 border border-border/20 overflow-hidden p-1 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl glass overflow-hidden p-1 flex items-center justify-center">
                   <img src="/escudo.png" alt="B. Hipotecario" className="w-full h-full object-contain" />
                 </div>
-                <span className="text-[11px] font-bold text-foreground tracking-tight">B. HIPOTECARIO</span>
+                <span className="font-display text-[11px] font-bold text-foreground tracking-tight">B. HIPOTECARIO</span>
               </div>
 
-              <span className="text-xl font-black text-muted-foreground tracking-widest">VS</span>
+              <span className="font-display text-xl font-black text-muted-foreground tracking-widest">VS</span>
 
               <div className="flex flex-col items-center gap-1.5">
-                <div className="w-14 h-14 rounded-2xl bg-secondary/40 border border-border/20 overflow-hidden p-1 flex items-center justify-center">
+                <div className="w-14 h-14 rounded-2xl glass overflow-hidden p-1 flex items-center justify-center">
                   {opponentLogo ? (
                     <img src={opponentLogo} alt={matchInfo.opponent} className="w-full h-full object-contain" />
                   ) : (
-                    <span className="text-base font-black text-foreground">{matchInfo.opponent.slice(0, 2).toUpperCase()}</span>
+                    <span className="font-display text-base font-black text-foreground">{matchInfo.opponent.slice(0, 2).toUpperCase()}</span>
                   )}
                 </div>
-                <span className="text-[11px] font-bold text-foreground tracking-tight">{matchInfo.opponent.toUpperCase()}</span>
+                <span className="font-display text-[11px] font-bold text-foreground tracking-tight">{matchInfo.opponent.toUpperCase()}</span>
               </div>
             </div>
 
-            <div className="flex items-center justify-around pt-3 border-t border-border/20 gap-2">
+            <div className="flex items-center justify-around pt-3 border-t border-white/5 gap-2">
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Calendar className="w-3.5 h-3.5 text-primary" />
+                <Calendar className="w-3.5 h-3.5 text-primary-soft" />
                 <span className="capitalize">{formatDate(matchInfo.date)}</span>
               </div>
               <div className="h-3 w-px bg-border/40" />
               <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                <Clock className="w-3.5 h-3.5 text-primary" />
+                <Clock className="w-3.5 h-3.5 text-primary-soft" />
                 <span>{matchInfo.time} hs</span>
               </div>
               <div className="h-3 w-px bg-border/40" />
               <div className="flex items-center gap-1.5 text-xs">
-                <MapPin className="w-3.5 h-3.5 text-primary" />
-                <span className={`font-semibold ${matchInfo.location === "local" ? "text-primary" : "text-muted-foreground"}`}>
+                <MapPin className="w-3.5 h-3.5 text-primary-soft" />
+                <span className={`font-semibold ${matchInfo.location === "local" ? "text-primary-soft" : "text-muted-foreground"}`}>
                   {matchInfo.location === "local" ? "Local" : "Visitante"}
                 </span>
               </div>
@@ -423,11 +423,11 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
         </div>
 
         {/* Jugadoras Citadas */}
-        <Card className="bg-card border-border">
+        <Card className="bento-card border-0">
           <CardHeader className="pb-2">
             <div className="flex items-center gap-2">
-              <Users className="h-5 w-5 text-primary" />
-              <CardTitle className="text-lg text-card-foreground">Jugadoras Citadas ({players.length})</CardTitle>
+              <Users className="h-5 w-5 text-primary-soft" />
+              <CardTitle className="font-display text-lg text-card-foreground">Jugadoras Citadas ({players.length})</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -448,11 +448,11 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
         </Card>
 
         {/* Vestuario */}
-        <Card className="bg-card border-border">
+        <Card className="bento-card border-0">
           <CardHeader className="pb-2">
             <div className="flex items-center gap-2">
-              <Shirt className="h-5 w-5 text-primary" />
-              <CardTitle className="text-lg text-card-foreground">Vestuario</CardTitle>
+              <Shirt className="h-5 w-5 text-primary-soft" />
+              <CardTitle className="font-display text-lg text-card-foreground">Vestuario</CardTitle>
             </div>
           </CardHeader>
           <CardContent>
@@ -475,11 +475,11 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
 
         {/* Bloqueos */}
         {blockPlays && blockPlays.length > 0 && (
-          <Card className="bg-card border-border">
+          <Card className="bento-card border-0">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
-                <Target className="h-5 w-5 text-primary" />
-                <CardTitle className="text-lg text-card-foreground">Jugadas de Bloqueo</CardTitle>
+                <Target className="h-5 w-5 text-primary-soft" />
+                <CardTitle className="font-display text-lg text-card-foreground">Jugadas de Bloqueo</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
@@ -542,11 +542,11 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
 
         {/* Corners Ofensivos */}
         {cornerPlays && cornerPlays.length > 0 && (
-          <Card className="bg-card border-border">
+          <Card className="bento-card border-0">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
-                <LayoutGrid className="h-5 w-5 text-primary" />
-                <CardTitle className="text-lg text-card-foreground">Corners Ofensivos</CardTitle>
+                <LayoutGrid className="h-5 w-5 text-primary-soft" />
+                <CardTitle className="font-display text-lg text-card-foreground">Corners Ofensivos</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
@@ -567,11 +567,11 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
 
         {/* Corners Defensivos */}
         {defensiveCornerPlays && defensiveCornerPlays.length > 0 && (
-          <Card className="bg-card border-border">
+          <Card className="bento-card border-0">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
-                <LayoutGrid className="h-5 w-5 text-primary" />
-                <CardTitle className="text-lg text-card-foreground">Corners Defensivos</CardTitle>
+                <LayoutGrid className="h-5 w-5 text-primary-soft" />
+                <CardTitle className="font-display text-lg text-card-foreground">Corners Defensivos</CardTitle>
               </div>
             </CardHeader>
             <CardContent>
@@ -592,11 +592,11 @@ export default function SharePageContent({ exportData }: { exportData: SharedDat
 
         {/* Formaciones */}
         {formationBoards && formationBoards.length > 0 && (
-          <Card className="bg-card border-border">
+          <Card className="bento-card border-0">
             <CardHeader className="pb-2">
               <div className="flex items-center gap-2">
-                <LayoutGrid className="h-5 w-5 text-primary" />
-                <CardTitle className="text-lg text-card-foreground">Formaciones</CardTitle>
+                <LayoutGrid className="h-5 w-5 text-primary-soft" />
+                <CardTitle className="font-display text-lg text-card-foreground">Formaciones</CardTitle>
               </div>
             </CardHeader>
             <CardContent>

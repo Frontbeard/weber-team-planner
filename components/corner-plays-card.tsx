@@ -114,7 +114,7 @@ function CornerMiniCard({
   return (
     <button
       onClick={onClick}
-      className="w-full rounded-xl border border-border/30 bg-card hover:border-primary/40 hover:bg-card/80 transition-all overflow-hidden group"
+      className="w-full rounded-xl border border-white/10 bg-card hover:border-primary/40 hover:bg-card/80 glow-hover transition-all overflow-hidden group"
     >
       {/* Mini field preview */}
       <div className="relative w-full aspect-video overflow-hidden">
@@ -209,11 +209,11 @@ function CornerEditor({
   }
 
   return (
-    <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-3">
-      <div className="bg-card rounded-2xl w-full max-w-2xl max-h-[95vh] overflow-y-auto">
+    <div className="fixed inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center z-50 p-3">
+      <div className="glass-strong rounded-2xl w-full max-w-2xl max-h-[95vh] overflow-y-auto">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-border/30">
-          <h3 className="text-sm font-bold text-foreground">
+        <div className="flex items-center justify-between p-4 border-b border-white/5">
+          <h3 className="font-display text-sm font-bold text-foreground">
             Editar {isDefensive ? "Corner Defensivo" : "Corner Ofensivo"}
           </h3>
           <button onClick={onClose} className="p-1.5 hover:bg-secondary rounded-lg">
@@ -419,19 +419,19 @@ export function CornerPlaysCard() {
   return (
     <div className="space-y-4">
       {/* Tabs */}
-      <div className="flex gap-1 p-1 bg-secondary/50 rounded-xl">
+      <div className="flex gap-1 p-1 glass rounded-xl">
         <button
           onClick={() => setActiveTab("offensive")}
-          className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
-            activeTab === "offensive" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+          className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold font-display tracking-tight transition-all ${
+            activeTab === "offensive" ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           Ofensivo ({cornerPlays.length})
         </button>
         <button
           onClick={() => setActiveTab("defensive")}
-          className={`flex-1 px-3 py-2 rounded-lg text-xs font-medium transition-all ${
-            activeTab === "defensive" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"
+          className={`flex-1 px-3 py-2 rounded-lg text-xs font-semibold font-display tracking-tight transition-all ${
+            activeTab === "defensive" ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25" : "text-muted-foreground hover:text-foreground"
           }`}
         >
           Defensivo ({defensiveCornerPlays.length})

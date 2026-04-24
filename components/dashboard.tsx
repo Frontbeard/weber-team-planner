@@ -81,28 +81,31 @@ function HomeView({ onSelectFixture }: { onSelectFixture: (f: Fixture) => void }
 
   return (
     <div className="space-y-8">
-      {/* Hero: Club identity */}
-      <div className="relative rounded-2xl overflow-hidden border border-border/30 bg-card p-6 shadow-xl">
-        <div className="flex items-center gap-5">
-          <div className="w-20 h-20 rounded-2xl overflow-hidden bg-secondary flex items-center justify-center shadow-lg border border-border/20 shrink-0">
+      {/* Hero: Club identity — bento card with glow accent */}
+      <div className="relative bento-card p-6 shadow-2xl">
+        {/* Subtle ambient glow */}
+        <div className="pointer-events-none absolute -top-24 -right-24 w-64 h-64 rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(0,102,255,0.18) 0%, transparent 60%)" }} />
+        <div className="relative flex items-center gap-5">
+          <div className="w-20 h-20 rounded-2xl overflow-hidden bg-secondary flex items-center justify-center shadow-lg border border-white/10 shrink-0 glow-primary-soft">
             <img src={teamLogo} alt="Banco Hipotecario" className="w-full h-full object-contain p-1.5" />
           </div>
           <div>
-            <p className="text-xs font-semibold tracking-widest text-primary uppercase mb-1">Panel DT</p>
-            <h2 className="text-2xl font-bold text-foreground leading-tight">Club Banco<br />Hipotecario</h2>
+            <p className="label-caps text-primary-soft mb-1.5">Panel DT</p>
+            <h2 className="font-display text-2xl font-bold text-foreground leading-tight">Club Banco<br />Hipotecario</h2>
             <p className="text-sm text-muted-foreground mt-1">Hockey Femenino — SEGUNDA 2026</p>
           </div>
         </div>
         {/* Stats row */}
-        <div className="mt-5 grid grid-cols-3 gap-3">
+        <div className="relative mt-5 grid grid-cols-3 gap-3">
           {[
             { label: "Plantel", val: squad.length },
             { label: "Posición Torneo", val: 12 },
             { label: "Puntos", val: 3 },
           ].map(s => (
-            <div key={s.label} className="text-center bg-secondary/40 rounded-xl py-2.5 px-3">
-              <p className="text-xl font-bold text-primary">{s.val}</p>
-              <p className="text-[11px] text-muted-foreground">{s.label}</p>
+            <div key={s.label} className="text-center glass rounded-xl py-3 px-3">
+              <p className="stat-value text-primary-soft">{s.val}</p>
+              <p className="label-caps text-muted-foreground mt-1.5">{s.label}</p>
             </div>
           ))}
         </div>
@@ -124,7 +127,7 @@ function HomeView({ onSelectFixture }: { onSelectFixture: (f: Fixture) => void }
               const month = Number(monthStr)
               const isExpanded = expandedMonths.has(month)
               return (
-                <div key={month} className="rounded-2xl border border-border/30 bg-card overflow-hidden">
+                <div key={month} className="bento-card overflow-hidden">
                   {/* Month header */}
                   <button
                     onClick={() => toggleMonth(month)}
@@ -231,7 +234,7 @@ function HomeView({ onSelectFixture }: { onSelectFixture: (f: Fixture) => void }
         {/* Right: Squad only */}
         <div className="lg:col-span-1 space-y-5">
           {/* Squad */}
-          <div className="rounded-2xl border border-border/30 bg-card p-4 shadow-lg">
+          <div className="bento-card p-4 shadow-lg">
             <div className="flex items-center gap-2 mb-3">
               <Users className="w-4 h-4 text-primary" />
               <h3 className="text-sm font-bold text-foreground">Plantel</h3>
@@ -303,15 +306,15 @@ function MatchView({ fixture, onBack }: { fixture: Fixture; onBack: () => void }
       {/* Match header */}
       <MatchInfoCard />
 
-      {/* Tab bar */}
-      <div className="flex bg-secondary/40 rounded-xl sm:rounded-2xl p-0.5 sm:p-1 gap-0.5">
+      {/* Tab bar — glass segmented control */}
+      <div className="flex glass rounded-xl sm:rounded-2xl p-0.5 sm:p-1 gap-0.5">
         {tabs.map(t => (
           <button
             key={t.id}
             onClick={() => setActiveTab(t.id)}
-            className={`flex-1 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-lg sm:rounded-xl transition-all ${
+            className={`flex-1 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold rounded-lg sm:rounded-xl transition-all font-display tracking-tight ${
               activeTab === t.id
-                ? "bg-card text-foreground shadow-sm"
+                ? "bg-primary text-primary-foreground shadow-lg shadow-primary/25"
                 : "text-muted-foreground hover:text-foreground"
             }`}
           >
@@ -343,14 +346,14 @@ function DashboardContent() {
 
   return (
     <div className={`min-h-screen bg-background transition-colors duration-300 ${bwMode ? "bw-mode" : ""}`}>
-      {/* Top nav */}
-      <header className="sticky top-0 z-50 border-b border-border/30 bg-background/80 backdrop-blur-xl">
+      {/* Top nav — glass header */}
+      <header className="sticky top-0 z-50 border-b border-white/5 bg-background/70 backdrop-blur-2xl supports-[backdrop-filter]:bg-background/50">
         <div className="max-w-5xl mx-auto px-3 sm:px-4 h-12 sm:h-14 flex items-center justify-between gap-2">
           <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl overflow-hidden bg-secondary/60 border border-border/20 p-0.5 shrink-0">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-xl overflow-hidden bg-secondary/60 border border-white/10 p-0.5 shrink-0">
               <img src={teamLogo} alt="BH" className="w-full h-full object-contain" />
             </div>
-            <span className="text-xs sm:text-sm font-bold text-foreground tracking-tight hidden sm:block">Panel DT</span>
+            <span className="font-display text-xs sm:text-sm font-bold text-foreground tracking-tight hidden sm:block">Panel DT</span>
           </div>
           <div className="flex items-center gap-1.5">
             <button

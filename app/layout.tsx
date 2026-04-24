@@ -1,10 +1,20 @@
 import type { Metadata } from 'next'
-import { Geist, Geist_Mono } from 'next/font/google'
+import { Lexend, Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import './globals.css'
 
-const _geist = Geist({ subsets: ["latin"] });
-const _geistMono = Geist_Mono({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-inter',
+  display: 'swap',
+})
+
+const lexend = Lexend({
+  subsets: ['latin'],
+  variable: '--font-lexend',
+  display: 'swap',
+  weight: ['400', '500', '600', '700'],
+})
 
 export const metadata: Metadata = {
   title: 'Stick Planner',
@@ -36,15 +46,15 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" className={`${inter.variable} ${lexend.variable}`}>
       <body className="font-sans antialiased flex flex-col min-h-screen">
         <div className="flex-1">
           {children}
         </div>
         {/* <footer className="py-4 text-center border-t border-border/20 bg-background/50">
-          <a 
-            href="https://www.instagram.com/hako.std/" 
-            target="_blank" 
+          <a
+            href="https://www.instagram.com/hako.std/"
+            target="_blank"
             rel="noopener noreferrer"
             className="text-xs text-muted-foreground hover:text-primary transition-colors"
           >
